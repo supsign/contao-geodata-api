@@ -7,3 +7,6 @@ services:
         Symfony\Component\DependencyInjection\ContainerAwareInterface:
             calls:
                 - ["setContainer", ["@service_container"]]
+
+
+# hooks: https://youtu.be/VzDYjEd7OyQ?t=1133
