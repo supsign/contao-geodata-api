@@ -1,21 +1,13 @@
 <?php
 
-/*
- * This file is part of [package name].
- *
- * (c) John Doe
- *
- * @license LGPL-3.0-or-later
- */
-
-namespace Supsign\AttendanceListBundle\DependencyInjection;
+namespace Supsign\ContaoAttendanceListBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-class ContaoSkeletonExtension extends Extension
+class ContaoAttendanceListExtension extends Extension
 {
     /**
      * {@inheritdoc}
