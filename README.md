@@ -1,4 +1,6 @@
-# Contao 4 skeleton bundle
+# Contao Attendance List Bundle
+
+This bundle is just a test and not developed for usage in production.
 
 Contao is an Open Source PHP Content Management System for people who want a
 professional website that is easy to maintain. Visit the [project website][1]

@@ -1,7 +1,7 @@
 <?php
 
 $header = <<<EOF
-This file is part of AttendenceList.
+This file is part of Contao Attendance List Bundle.
 
 (c) Supsign GmbH
 

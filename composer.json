@@ -29,16 +29,16 @@
         "symfony/phpunit-bridge": "^3.2"
     },
     "extra": {
-        "contao-manager-plugin": "Supsign\\AttendanceListBundle\\ContaoManager\\Plugin"
+        "contao-manager-plugin": "Supsign\\ContaoAttendanceListBundle\\ContaoManager\\Plugin"
     },
     "autoload": {
         "psr-4": {
-            "Supsign\\AttendanceListBundle\\": "src/"
+            "Supsign\\ContaoAttendanceListBundle\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Supsign\\AttendanceListBundle\\Tests\\": "tests/"
+            "Supsign\\ContaoAttendanceListBundle\\Tests\\": "tests/"
         }
     },
     "support": {
