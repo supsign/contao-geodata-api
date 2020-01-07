@@ -8,5 +8,14 @@ services:
             calls:
                 - ["setContainer", ["@service_container"]]
 
+    contao_test.navigation_listener:
+        class: Supsign\AttendanceListBundle\EventListener\navigation_listener
+        arguments: 
+            - "@request_stack"
+            - "@router"
+        tags:
+            - { name: contao.hook, hook: getUserNavigation }
 
-# hooks: https://youtu.be/VzDYjEd7OyQ?t=1133
+
+# hooks:      https://youtu.be/VzDYjEd7OyQ?t=1133
+# Fragmanets: https://youtu.be/VzDYjEd7OyQ?t=1145
