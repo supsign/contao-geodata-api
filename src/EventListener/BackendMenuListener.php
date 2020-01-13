@@ -22,15 +22,16 @@ class BackendMenuListener
         $factory = $event->getFactory();
         $tree = $event->getTree();
 
-        $contentNode = $tree->getChild('content');
+        $contentNode = $tree->getChild('accounts');
 
         $node = $factory->createItem(
             'my-modules',
             [
-                'label' => 'My Modules',
+                'label' => 'Präsenzliste',
                 'attributes' => [
-                    'title' => 'Title',
-                    'href' => $this->router->generate('app.backend-route'),
+                    'title' => 'Erstellen Sie die Präsenzliste.',
+                    'href' => 'https://supsign.ch',
+                    // 'href' => $this->router->generate('app.backend-route'),
                     'class' => 'my-modules'
                 ],
             ]
