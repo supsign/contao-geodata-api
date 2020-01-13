@@ -25,18 +25,19 @@ class BackendMenuListener
         $contentNode = $tree->getChild('content');
 
         $node = $factory->createItem(
-            'attendance-list',
+            'my-modules',
             [
-                'label' => 'Präzenzliste',
+                'label' => 'My Modules',
                 'attributes' => [
-                    'title' => 'Title Test',
-                    'href' => $this->router->generate('app.backend-route'),
-                    'class' => 'attendance-list'
+                    'title' => 'Title',
+                    // 'href' => $this->router->generate('app.backend-route'),
+                    'href' => 'https://supsign.ch',
+                    'class' => 'my-modules'
                 ],
             ]
         );
 
-        $node->setCurrent($this->requestStack->getCurrentRequest()->get('_backend_module') === 'attendance-list');
+        $node->setCurrent($this->requestStack->getCurrentRequest()->get('_backend_module') === 'my-modules');
 
         $contentNode->addChild($node);
     }
