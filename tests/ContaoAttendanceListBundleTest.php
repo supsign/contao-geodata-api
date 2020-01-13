@@ -1,6 +1,6 @@
 <?php
 
-namespace Supsign\SkeletonBundle\Tests;
+namespace Supsign\AttendanceListBundle\Tests;
 
 use Supsign\AttendanceListBundle\AttendanceListBundle;
 use PHPUnit\Framework\TestCase;
