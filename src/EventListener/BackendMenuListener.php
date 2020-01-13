@@ -37,7 +37,7 @@ class BackendMenuListener
             ]
         );
 
-        $node->setCurrent($this->requestStack->getCurrentRequest()->get('_backend_module') === 'my-modules');
+        $node->setCurrent($this->requestStack->getCurrentRequest()->get('_backend_module') === 'my-modules');       //  highlights the menu icon if we are on route of our plugin
 
         $contentNode->addChild($node);
     }
