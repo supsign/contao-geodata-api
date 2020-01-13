@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace Supsign\ContaoAttendanceListBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 class BackendController extends AbstractController
 {
     /**
-     * @Route("/attendance-list-route", name="app.backend-route")
+     * @Route("/my-backend-route", name="app.backend-route")
      * @Template("be_contao_attendence_list.html.twig")
      */
     public function backendRouteAction()

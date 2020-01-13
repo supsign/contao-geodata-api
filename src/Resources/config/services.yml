@@ -1,5 +1,5 @@
 services:
-    App\EventListener\BackendMenuListener:
+    Supsign\ContaoAttendanceListBundle\EventListener\BackendMenuListener:
         arguments:
             - "@router"
             - "@request_stack"

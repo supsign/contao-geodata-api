@@ -1,6 +1,6 @@
 <?php
 
-namespace App\EventListener;
+namespace Supsign\ContaoAttendanceListBundle\EventListener;
 
 use Contao\CoreBundle\Event\MenuEvent;
 use Symfony\Component\HttpFoundation\RequestStack;
