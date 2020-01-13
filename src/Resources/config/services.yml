@@ -8,5 +8,5 @@ services:
                 name: kernel.event_listener,
                 event: contao.backend_menu_build,
                 method: onBuild,
-                priority: 5 
+                priority: -255
               }

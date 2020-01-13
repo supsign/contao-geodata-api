@@ -30,8 +30,7 @@ class BackendMenuListener
                 'label' => 'My Modules',
                 'attributes' => [
                     'title' => 'Title',
-                    // 'href' => $this->router->generate('app.backend-route'),
-                    'href' => 'https://supsign.ch',
+                    'href' => $this->router->generate('app.backend-route'),
                     'class' => 'my-modules'
                 ],
             ]
