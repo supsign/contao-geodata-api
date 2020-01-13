@@ -2,10 +2,9 @@
 
 namespace Supsign\ContaoAttendanceListBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/contao", defaults={
@@ -18,10 +17,10 @@ class BackendController extends AbstractController
 {
     /**
      * @Route("/my-backend-route", name="app.backend-route")
-     * @Template("my_backend_route.html.twig")
+     * @twig->generate("my_backend_route.html.twig")
      */
     public function backendRouteAction()
     {
-        return [];
+        return (new Response)->setContent('I hate Contao');
     }
 }

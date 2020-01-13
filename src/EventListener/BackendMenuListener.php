@@ -30,8 +30,7 @@ class BackendMenuListener
                 'label' => 'Präsenzliste',
                 'attributes' => [
                     'title' => 'Erstellen Sie die Präsenzliste.',
-                    'href' => 'https://supsign.ch',
-                    // 'href' => $this->router->generate('app.backend-route'),
+                    'href' => $this->router->generate('app.backend-route'),
                     'class' => 'my-modules'
                 ],
             ]
@@ -39,6 +38,6 @@ class BackendMenuListener
 
         $node->setCurrent($this->requestStack->getCurrentRequest()->get('_backend_module') === 'my-modules');       //  highlights the menu icon if we are on route of our plugin
 
-        $contentNode->addChild($node);
+        // $contentNode->addChild($node);
     }
 }
