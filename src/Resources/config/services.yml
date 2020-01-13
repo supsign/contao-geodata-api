@@ -7,6 +7,9 @@ services:
         Symfony\Component\DependencyInjection\ContainerAwareInterface:
             calls:
                 - ["setContainer", ["@service_container"]]
-
-
-# hooks: https://youtu.be/VzDYjEd7OyQ?t=1133
+    App\EventListener\BackendMenuListener:
+        arguments:
+            - "@router"
+            - "@request_stack"
+        tags:
+            - { name: kernel.event_listener, event: contao.backend_menu_build, method: onBuild, priority: -255 }
