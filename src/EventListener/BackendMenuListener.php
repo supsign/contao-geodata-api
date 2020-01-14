@@ -30,7 +30,7 @@ class BackendMenuListener
                 'label' => 'Präsenzliste',
                 'attributes' => [
                     'title' => 'Erstellen Sie die Präsenzliste.',
-                    'href' => $this->router->generate('supsign.attendancelis'),
+                    'href' => $this->router->generate('supsign.attendancelist'),
                     'class' => 'my-modules'     // what is this for?
                 ],
             ]
