@@ -18,8 +18,16 @@ class BackendController extends AbstractController
     /**
      * @Route("/attendancelist", name="supsign.attendancelist")
      */
+
+
+
     public function backendRouteAction()
     {
-        return (new Response)->setContent('I hate Contao');
+
+        $var = [
+            'foo' => 'bar'
+        ];
+
+        return new Response($this->get('twig')->render('my_backend_route.html.twig', $var)); // Achtung Pfad muss im root/templates von Contao nicht dem Vendor liegen. Hier fehlt die Anpassung und Namensregistrierung mit @SupsignAttendance....
     }
 }
