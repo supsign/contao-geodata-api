@@ -25,18 +25,18 @@ class BackendMenuListener
         $contentNode = $tree->getChild('accounts');
 
         $node = $factory->createItem(
-            'my-modules',
+            'attendance-list',
             [
                 'label' => 'Präsenzliste',
                 'attributes' => [
                     'title' => 'Erstellen Sie die Präsenzliste.',
-                    'href' => $this->router->generate('app.backend-route'),
-                    'class' => 'my-modules'
+                    'href' => $this->router->generate('supsign.attendancelis'),
+                    'class' => 'my-modules'     // what is this for?
                 ],
             ]
         );
 
-        $node->setCurrent($this->requestStack->getCurrentRequest()->get('_backend_module') === 'my-modules');       //  highlights the menu icon if we are on route of our plugin
+        $node->setCurrent($this->requestStack->getCurrentRequest()->get('_backend_module') === 'attendance-list');       //  highlights the menu icon if we are on a route of our plugin
 
         // $contentNode->addChild($node);
     }
