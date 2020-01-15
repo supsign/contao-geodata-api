@@ -25,16 +25,21 @@ class BackendMenuListener
         $mainMenu = $factory
         	->createItem('supsign')
         	->setUri('/contao')
-        	// ->setLinkAttribute('onclick', "return AjaxRequest.toggleNavigation(this, 'supsign', '".$this->router->generate('contao_backend')."')")
-            ->setLabel('Supsign');
+            ->setLabel('MSC.supisgn')
+            ->setLinkAttribute('class', 'icon-profile')
+            ->setExtra('translation_domain', 'contao_default');
 
         $subMenu = $tree->addChild($mainMenu);
 
         $list = $factory
         	->createItem('attendance-list')
         	->setUri('/contao/attendancelist')
-            ->setLabel('Präsenzliste');
+            ->setLabel('MSC.attendancelist')
+            ->setExtra('translation_domain', 'contao_default');
 
 		$subMenu->addChild($list);
+
+        // var_dump($mainMenu);
+        // die();
     }
 }
