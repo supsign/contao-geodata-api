@@ -23,7 +23,7 @@ class BackendMenuListener
         $tree = $event->getTree();
 
         if (!$tree->getChild('supsign') ) {
-	        $mainMenu = $factory
+	        $node = $factory
 	            ->createItem('supsign')
 	            ->setUri('/')
 	            ->setLabel('MSC.supisgn')
@@ -32,10 +32,10 @@ class BackendMenuListener
 	            ->setChildrenAttribute('id', 'supsign')
 	            ->setExtra('translation_domain', 'contao_default');
 
-	        $subMenu = $tree->addChild($mainMenu);
+	        $contentNode = $tree->addChild($node);
     	}
 
-        $list = $factory
+        $menuItem = $factory
             ->createItem('attendance-list')
             ->setUri('/contao/attendancelist')
             ->setLabel('MSC.attendancelistName')
@@ -43,6 +43,6 @@ class BackendMenuListener
             ->setCurrent($this->requestStack->getCurrentRequest()->get('_backend_module') === 'attendance-list')
             ->setExtra('translation_domain', 'contao_default');
 
-        $subMenu->addChild($list);
+        $contentNode->addChild($menuItem);
     }
 }
