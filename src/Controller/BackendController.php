@@ -30,7 +30,21 @@ class BackendController extends AbstractController
 
     public function backendRouteAction()
     {
-    	$arr_data = ['var' => 'dynamic content'];
+    	$arr_data = ['var' => '<href="/test">test links</a>'];
+
+        return new Response(
+        	$this->get('twig')->render('@ContaoAttendanceList/my_backend_route.html.twig', $arr_data)
+        );
+    }
+
+
+    /**
+     * @Route("/attendancelist/test", name="supsign.attendancelist.test")
+     */
+
+    public function backendRouteTestAction()
+    {
+    	$arr_data = ['var' => 'test content'];
 
         return new Response(
         	$this->get('twig')->render('@ContaoAttendanceList/my_backend_route.html.twig', $arr_data)
