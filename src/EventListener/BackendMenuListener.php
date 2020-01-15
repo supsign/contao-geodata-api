@@ -22,6 +22,10 @@ class BackendMenuListener
         $factory = $event->getFactory();
         $tree = $event->getTree();
 
+        if ('mainMenu' !== $tree->getName() ) {
+            return;
+        }
+
         if (!$tree->getChild('supsign') ) {
 	        $node = $factory
 	            ->createItem('supsign')
