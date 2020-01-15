@@ -22,22 +22,19 @@ class BackendMenuListener
         $factory = $event->getFactory();
         $tree = $event->getTree();
 
-        $contentNode = $tree->getChild('accounts');
+        $mainMenu = $factory
+        	->createItem('supsign')
+        	->setUri('/contao')
+        	// ->setLinkAttribute('onclick', "return AjaxRequest.toggleNavigation(this, 'supsign', '".$this->router->generate('contao_backend')."')")
+            ->setLabel('Supsign');
 
-        $node = $factory->createItem(
-            'attendance-list',
-            [
-                'label' => 'Präsenzliste',
-                'attributes' => [
-                    'title' => 'Erstellen Sie die Präsenzliste.',
-                    'href' => $this->router->generate('supsign.attendancelist'),
-                    'class' => 'attendance-list'                                                                        // what is this for?
-                ],
-            ]
-        );
+        $subMenu = $tree->addChild($mainMenu);
 
-        $node->setCurrent($this->requestStack->getCurrentRequest()->get('_backend_module') === 'attendance-list');       //  highlights the menu icon if we are on a route of our plugin
+        $list = $factory
+        	->createItem('attendance-list')
+        	->setUri('/contao/attendancelist')
+            ->setLabel('Präsenzliste');
 
-        // $contentNode->addChild($node);
+		$subMenu->addChild($list);
     }
 }

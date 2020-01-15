@@ -30,8 +30,10 @@ class BackendController extends AbstractController
 
     public function backendRouteAction()
     {
+    	$arr_data = ['var' => 'dynamic content'];
+
         return new Response(
-        	$this->get('twig')->render('@ContaoAttendanceList/my_backend_route.html.twig', [])
-        );    
+        	$this->get('twig')->render('@ContaoAttendanceList/my_backend_route.html.twig', $arr_data)
+        );
     }
 }
