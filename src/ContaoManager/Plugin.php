@@ -27,7 +27,7 @@ class Plugin implements BundlePluginInterface, RoutingPluginInterface
     public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel)
     {
 
-        $file = '@SupsignContaoAttendanceListBundle/Resources/config/routing.yml';
+        $file = '@ContaoAttendanceListBundle/Resources/config/routing.yml';
         return $resolver->resolve($file)->load($file);
 
         //  return $resolver
