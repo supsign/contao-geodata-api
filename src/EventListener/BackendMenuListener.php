@@ -22,27 +22,27 @@ class BackendMenuListener
         $factory = $event->getFactory();
         $tree = $event->getTree();
 
-        $mainMenu = $factory
-            ->createItem('supsign')
-            ->setUri('/contao')
-            ->setLabel('MSC.supisgn')
-            ->setLinkAttribute('class', 'group-system')
-            ->setLinkAttribute('onclick', "return AjaxRequest.toggleNavigation(this, 'supsign', '/contao')")
-            ->setChildrenAttribute('id', 'supsign')
-            ->setExtra('translation_domain', 'contao_default');
+        if (!isset($tree->getChildren()['supsign']) ) {
+	        $mainMenu = $factory
+	            ->createItem('supsign')
+	            ->setUri('/')
+	            ->setLabel('MSC.supisgn')
+	            ->setLinkAttribute('class', 'group-system')
+	            ->setLinkAttribute('onclick', "return AjaxRequest.toggleNavigation(this, 'supsign', '/')")
+	            ->setChildrenAttribute('id', 'supsign')
+	            ->setExtra('translation_domain', 'contao_default');
 
-        $subMenu = $tree->addChild($mainMenu);
+	        $subMenu = $tree->addChild($mainMenu);
+    	}
 
         $list = $factory
             ->createItem('attendance-list')
             ->setUri('/contao/attendancelist')
-            ->setLabel('MSC.attendancelist')
+            ->setLabel('MSC.attendancelistName')
+            ->setLinkAttribute('title', 'MSC.attendancelistTitle')														//	translation geht hier wohl nicht?
             ->setCurrent($this->requestStack->getCurrentRequest()->get('_backend_module') === 'attendance-list')
             ->setExtra('translation_domain', 'contao_default');
 
         $subMenu->addChild($list);
-
-        // var_dump($mainMenu);
-        // die();
     }
 }

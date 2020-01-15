@@ -5,7 +5,11 @@
         <source></source>
         <target>Supgsin</target>
       </trans-unit>
-      <trans-unit id="MSC.attendancelist">
+      <trans-unit id="MSC.attendancelistName">
+        <source></source>
+        <target>Präsenzliste</target>
+      </trans-unit>
+      <trans-unit id="MSC.attendancelistTitle">
         <source></source>
         <target>Präsenzliste</target>
       </trans-unit>
