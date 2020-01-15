@@ -22,9 +22,8 @@ class BackendMenuListener
         $factory = $event->getFactory();
         $tree = $event->getTree();
 
-        if ('mainMenu' !== $tree->getName() ) {
+        if ($tree->getName() !== 'mainMenu')
             return;
-        }
 
         if (!$tree->getChild('supsign') ) {
 	        $node = $factory
