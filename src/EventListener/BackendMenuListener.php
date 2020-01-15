@@ -37,6 +37,7 @@ class BackendMenuListener
             ->createItem('attendance-list')
             ->setUri('/contao/attendancelist')
             ->setLabel('MSC.attendancelist')
+            ->setCurrent($this->requestStack->getCurrentRequest()->get('_backend_module') === 'attendance-list')
             ->setExtra('translation_domain', 'contao_default');
 
         $subMenu->addChild($list);
