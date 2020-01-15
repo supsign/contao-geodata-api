@@ -2,6 +2,15 @@
 
 namespace Supsign\ContaoAttendanceListBundle\Controller;
 
+use Contao\BackendAlerts;
+use Contao\BackendConfirm;
+use Contao\BackendFile;
+use Contao\BackendHelp;
+use Contao\BackendIndex;
+use Contao\BackendMain;
+use Contao\BackendPage;
+use Contao\BackendPassword;
+use Contao\BackendPopup;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,8 +28,6 @@ class BackendController extends AbstractController
      * @Route("/attendancelist", name="supsign.attendancelist")
      */
 
-
-
     public function backendRouteAction()
     {
 
@@ -28,6 +35,10 @@ class BackendController extends AbstractController
             'foo' => 'bar'
         ];
 
-        return new Response($this->get('twig')->render('my_backend_route.html.twig', $var)); // Achtung Pfad muss im root/templates von Contao nicht dem Vendor liegen. Hier fehlt die Anpassung und Namensregistrierung mit @SupsignAttendance....
+
+        $controller = new BackendMain();
+
+        return $controller->run();
+        // return new Response($this->get('twig')->render('@ContaoAttendanceListBundle/templates/my_backend_route.html.twig', $var)); // Achtung Pfad muss im root/templates von Contao nicht dem Vendor liegen. Hier fehlt die Anpassung und Namensregistrierung mit @SupsignAttendance....
     }
 }
