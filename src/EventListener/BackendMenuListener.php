@@ -27,6 +27,8 @@ class BackendMenuListener
         	->setUri('/contao')
             ->setLabel('MSC.supisgn')
             ->setLinkAttribute('class', 'icon-profile')
+            ->setLinkAttribute('onclick', "return AjaxRequest.toggleNavigation(this, 'supsign', '/contao')")
+            ->setChildrenAttribute('id', 'supsign')
             ->setExtra('translation_domain', 'contao_default');
 
         $subMenu = $tree->addChild($mainMenu);
