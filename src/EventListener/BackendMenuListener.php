@@ -22,7 +22,7 @@ class BackendMenuListener
         $factory = $event->getFactory();
         $tree = $event->getTree();
 
-        if (!isset($tree->getChildren()['supsign']) ) {
+        if (!$tree->getChild('supsign') ) {
 	        $mainMenu = $factory
 	            ->createItem('supsign')
 	            ->setUri('/')
