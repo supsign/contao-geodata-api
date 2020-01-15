@@ -23,10 +23,10 @@ class BackendMenuListener
         $tree = $event->getTree();
 
         $mainMenu = $factory
-        	->createItem('supsign')
-        	->setUri('/contao')
+            ->createItem('supsign')
+            ->setUri('/contao')
             ->setLabel('MSC.supisgn')
-            ->setLinkAttribute('class', 'icon-profile')
+            ->setLinkAttribute('class', 'group-system')
             ->setLinkAttribute('onclick', "return AjaxRequest.toggleNavigation(this, 'supsign', '/contao')")
             ->setChildrenAttribute('id', 'supsign')
             ->setExtra('translation_domain', 'contao_default');
@@ -34,12 +34,12 @@ class BackendMenuListener
         $subMenu = $tree->addChild($mainMenu);
 
         $list = $factory
-        	->createItem('attendance-list')
-        	->setUri('/contao/attendancelist')
+            ->createItem('attendance-list')
+            ->setUri('/contao/attendancelist')
             ->setLabel('MSC.attendancelist')
             ->setExtra('translation_domain', 'contao_default');
 
-		$subMenu->addChild($list);
+        $subMenu->addChild($list);
 
         // var_dump($mainMenu);
         // die();
