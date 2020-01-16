@@ -1,7 +1,7 @@
 {
     "name": "supsign/attendance-list",
     "type": "symfony-bundle",
-    "description": "Contao 4 bundles prototype",
+    "description": "Contao 4.9 Attendance List Bundle",
     "homepage": "https://contao.org",
     "license": "LGPL-3.0-or-later",
     "authors": [
