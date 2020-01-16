@@ -40,7 +40,7 @@ class BackendMenuListener
 
         $menuItem = $factory
             ->createItem('attendance-list')
-	            ->setUri('/contao/attendancelist')
+	            ->setUri($this->router->generate('supsign.attendancelist') )
 	            ->setLabel('MSC.attendancelistName')
 	            ->setLinkAttribute('title', 'MSC.attendancelistTitle')														//	translation geht hier wohl nicht?
 	            ->setCurrent($this->requestStack->getCurrentRequest()->get('_backend_module') === 'attendance-list')
