@@ -14,6 +14,7 @@ namespace Supsign\ContaoAttendanceListBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Contao\ArticleModel;
 
 /**
  * @Route("/contao", defaults={
@@ -30,10 +31,14 @@ class BackendController extends AbstractController
 
     public function backendRouteAction()
     {
-    	$arr_data = ['var' => '<href="/test">test links</a>'];
+        $articles = ArticleModel::findAll();
+
+    	$data = [
+            'articles' => $articles
+        ];
 
         return new Response(
-        	$this->get('twig')->render('@ContaoAttendanceList/my_backend_route.html.twig', $arr_data)
+        	$this->get('twig')->render('@ContaoAttendanceList/list.html.twig', $data)
         );
     }
 

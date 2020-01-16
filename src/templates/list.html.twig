@@ -10,9 +10,9 @@
 {% block main %}
     <div class="tl_listing_container">
         
-
-
-
+    {% for article in articles %}
+        {{article.id}} {{article.title}}<br/>
+    {% endfor %}
 
     </div>
 {% endblock %}
