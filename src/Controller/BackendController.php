@@ -14,45 +14,74 @@ namespace Supsign\ContaoAttendanceListBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Contao\ArticleModel;
+use Contao\MemberModel;
 
 /**
  * @Route("/contao", defaults={
  *     "_scope" = "backend",
- *     "_token_check" = true,
+ *     "_token_check" = false,
  *     "_backend_module" = "attendance-list"
  * })
  */
 class BackendController extends AbstractController
 {
+
     /**
-     * @Route("/attendancelist", name="supsign.attendancelist")
+     * @Route("/attendancelist", name="supsign.attendancelist.default")
      */
 
-    public function backendRouteAction()
+    public function view()
     {
-        $articles = ArticleModel::findAll();
+        // $token = $_COOKIE['csrf_contao_csrf_token'];
 
-    	$data = [
-            'articles' => $articles
+        $submit  = extract($_POST) > 0;
+        $query   = MemberModel::findOneByEmail($email);
+        $exists  = $query !== null;
+
+        if (!$exists AND $email) {
+
+            $member = new MemberModel;
+
+            $member->firstname = $firstname;
+            $member->lastname  = $lastname;
+            $member->email     = $email;
+            $member->dateAdded = time();
+
+            $member->save();
+        }
+
+        // var_dump($exists);
+
+        $data = [
+            'members' => MemberModel::findAll(),
+            'submit' => $submit,
+            'exists'  => $exists
         ];
 
         return new Response(
-        	$this->get('twig')->render('@ContaoAttendanceList/list.html.twig', $data)
+            $this->get('twig')->render('@ContaoAttendanceList/view.html.twig', $data)
         );
     }
 
 
     /**
-     * @Route("/attendancelist/test", name="supsign.attendancelist.test")
+     * @Route("/attendancelist/new", name="supsign.attendancelist.create")
      */
 
-    public function backendRouteTestAction()
+    public function create()
     {
-    	$arr_data = ['var' => 'test content'];
+
+
+        $data = [
+            'members' => MemberModel::findAll(),
+            'success' => true,
+            'exists'  => $exists
+        ];
 
         return new Response(
-        	$this->get('twig')->render('@ContaoAttendanceList/my_backend_route.html.twig', $arr_data)
+            $this->get('twig')->render('@ContaoAttendanceList/view.html.twig', $data)
         );
     }
+
+
 }
