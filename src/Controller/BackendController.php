@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Contao\MemberModel;
+use Supsign\ContaoAttendanceListBundle\Entity\AttendanceList;
 
 /**
  * @Route("/contao", defaults={
@@ -34,12 +35,21 @@ class BackendController extends AbstractController
     {
         // $token = $_COOKIE['csrf_contao_csrf_token'];
 
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $attendanceList = (new AttendanceList)
+            ->setTitle('Titel')
+            ->setTstamp(time() )
+            ->setDescription('Description');
+
+        $entityManager->persist($attendanceList);
+        $entityManager->flush();
+
         $submit  = extract($_POST) > 0;
         $query   = MemberModel::findOneByEmail($email);
         $exists  = $query !== null;
 
         if (!$exists AND $email) {
-
             $member = new MemberModel;
 
             $member->firstname = $firstname;
