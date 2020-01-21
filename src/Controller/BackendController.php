@@ -50,12 +50,11 @@ class BackendController extends AbstractController
             $member->save();
         }
 
-        // var_dump($exists);
-
         $data = [
             'members' => MemberModel::findAll(),
             'submit' => $submit,
-            'exists'  => $exists
+            'exists'  => $exists,
+            'tests'   => $tests
         ];
 
         return new Response(
