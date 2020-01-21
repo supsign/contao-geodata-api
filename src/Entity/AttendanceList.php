@@ -1,6 +1,6 @@
 <?php
 
-namespace Sioweb\DummyBundle\Entity;
+namespace Supsign\ContaoAttendanceListBundle\Entity;
 use \Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -8,7 +8,7 @@ use \Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  * @ORM\Table(name="tl_attendance_list")
- * @ORM\Entity(repositoryClass="Sioweb\Dummy\Repository\DummyRepository")
+ * @ORM\Entity(repositoryClass="Supsign\ContaoAttendanceListBundle\Repository\AttendanceListRepository")
  */
 class AttendanceList
 {

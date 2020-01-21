@@ -1,6 +1,6 @@
 <?php
 
-namespace Sioweb\DummyBundle\Repository;
+namespace Supsign\ContaoAttendanceListBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
