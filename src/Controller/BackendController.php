@@ -42,8 +42,8 @@ class BackendController extends AbstractController
             ->setTstamp(time() )
             ->setDescription('Description');
 
-        $entityManager->persist($attendanceList);
-        // $entityManager->flush();                                        //  This does the save
+        //$entityManager->persist($attendanceList);                           //  This does the save
+        $entityManager->flush();                                        
 
         $attendanceList = null;
 
@@ -51,11 +51,9 @@ class BackendController extends AbstractController
 
         $attendanceList = $this->getDoctrine()
             ->getRepository(AttendanceList::class)
-            ->find(1);                                                      // This does the query
+            ->findAll();                                                      // This does the query
 
-
-        var_dump($attendanceList);
-
+        // var_dump($attendanceList);
 
         $submit  = extract($_POST) > 0;
         $query   = MemberModel::findOneByEmail($email);
