@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Contao\MemberModel;
+use Contao\MemberGroupModel;
 use Supsign\ContaoAttendanceListBundle\Entity\AttendanceList;
 
 /**
@@ -28,77 +29,61 @@ class BackendController extends AbstractController
 {
 
     /**
-     * @Route("/attendancelist", name="supsign.attendancelist.default")
+     * @Route("/attendancelist", name="supsign.attendancelist")
      */
 
-    public function view()
+    public function default()
     {
-        // $token = $_COOKIE['csrf_contao_csrf_token'];
 
-        $entityManager = $this->getDoctrine()->getManager();
+    	// $query = MemberModel::findOneById(16);
 
-        $attendanceList = (new AttendanceList)
-            ->setTitle('Titel')
-            ->setTstamp(time() )
-            ->setDescription('Description');
+    	// var_dump($query);
 
-        //$entityManager->persist($attendanceList);                           //  This does the save
-        $entityManager->flush();                                        
+    	// $query = MemberModel::findOneById(35);
 
-        $attendanceList = null;
+    	// var_dump($query);
 
-        var_dump(AttendanceList::class);
+    	// var_dump($_POST);
 
-        $attendanceList = $this->getDoctrine()
-            ->getRepository(AttendanceList::class)
-            ->findAll();                                                      // This does the query
+    	$submit = extract($_POST) > 0;
 
-        // var_dump($attendanceList);
+    	if ($submit) {
+	    	// $query = MemberModel::findByGroups($selectedMemberGroups);
 
-        $submit  = extract($_POST) > 0;
-        $query   = MemberModel::findOneByEmail($email);
-        $exists  = $query !== null;
+    		// // $query = MemberModel::findBy()
 
-        if (!$exists AND $email) {
-            $member = new MemberModel;
 
-            $member->firstname = $firstname;
-            $member->lastname  = $lastname;
-            $member->email     = $email;
-            $member->dateAdded = time();
+	    	// var_dump($query);
 
-            $member->save();
-        }
+	    	// foreach ($selectedMemberGroups AS $selectedMemberGroup) {
+		    // 	$query = MemberModel::findOneByGroups($selectedMemberGroup);
+		    // 	var_dump($query);
+	    	// }
+    	}
 
-        $data = [
-            'members' => MemberModel::findAll(),
-            'submit' => $submit,
-            'exists'  => $exists,
-            'tests'   => $tests
-        ];
+
+    	$data = [
+    		'memberGroups' => MemberGroupModel::findAll()
+    	];
 
         return new Response(
-            $this->get('twig')->render('@ContaoAttendanceList/view.html.twig', $data)
+            $this->get('twig')->render('@ContaoAttendanceList/default.html.twig', $data)
         );
     }
 
 
     /**
-     * @Route("/attendancelist/new", name="supsign.attendancelist.create")
+     * @Route("/attendancelist/new", name="supsign.attendancelist.archive")
      */
 
-    public function create()
+    public function archive()
     {
 
 
-        $data = [
-            'members' => MemberModel::findAll(),
-            'success' => true,
-            'exists'  => $exists
-        ];
+
 
         return new Response(
-            $this->get('twig')->render('@ContaoAttendanceList/view.html.twig', $data)
+            $this->get('twig')->render('@ContaoAttendanceList/archive.html.twig', $data)
         );
     }
 
