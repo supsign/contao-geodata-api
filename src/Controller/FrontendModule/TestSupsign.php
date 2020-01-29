@@ -18,7 +18,8 @@ use Symfony\Component\HttpFoundation\Response;
 class TestSupsign extends AbstractFrontendModuleController
 {
 
-	public function test() {
+	public function test() 
+	{
 
 		var_dump(
 			'we have contact!'
