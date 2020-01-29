@@ -1,6 +1,6 @@
 <?php
 
-namespace Supsign\ContaoAttendanceListBundle\ContaoManager;
+namespace Supsign\ContaoGeoDataApiBundle\ContaoManager;
 
 use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
@@ -9,7 +9,7 @@ use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Supsign\ContaoAttendanceListBundle\ContaoAttendanceListBundle;
+use Supsign\ContaoGeoDataApiBundle\ContaoGeoDataApiBundle;
 
 class Plugin implements BundlePluginInterface, RoutingPluginInterface
 {
@@ -19,14 +19,8 @@ class Plugin implements BundlePluginInterface, RoutingPluginInterface
     public function getBundles(ParserInterface $parser)
     {
         return [
-            BundleConfig::create(ContaoAttendanceListBundle::class)
+            BundleConfig::create(ContaoGeoDataApiBundle::class)
                 ->setLoadAfter([ContaoCoreBundle::class]),
         ];
-    }
-
-    public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel)
-    {
-        $file = '@ContaoAttendanceListBundle/Resources/config/routing.yml';
-        return $resolver->resolve($file)->load($file);
     }
 }

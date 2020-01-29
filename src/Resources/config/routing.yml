@@ -1,3 +1,0 @@
-app:
-    resource: ../../Controller/BackendController.php
-    type: annotation

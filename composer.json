@@ -1,7 +1,7 @@
 {
-    "name": "supsign/attendance-list",
+    "name": "supsign/geo-data-api",
     "type": "symfony-bundle",
-    "description": "Contao 4.9 Attendance List Bundle",
+    "description": "Contao 4.8 Geo Data Bundle",
     "homepage": "https://contao.org",
     "license": "LGPL-3.0-or-later",
     "authors": [
@@ -15,20 +15,20 @@
         "contao/core-bundle": ">=4.8"
     },
     "extra": {
-        "contao-manager-plugin": "Supsign\\ContaoAttendanceListBundle\\ContaoManager\\Plugin"
+        "contao-manager-plugin": "Supsign\\ContaoGeoDataApiBundle\\ContaoManager\\Plugin"
     },
     "autoload": {
         "psr-4": {
-            "Supsign\\ContaoAttendanceListBundle\\": "src/"
+            "Supsign\\ContaoGeoDataApiBundle\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Supsign\\ContaoAttendanceListBundle\\Tests\\": "tests/"
+            "Supsign\\ContaoGeoDataApiBundle\\Tests\\": "tests/"
         }
     },
     "support": {
-        "issues": "https://github.com/SupsignGmbH/attendance-list/issues",
-        "source": "https://github.com/SupsignGmbH/attendance-list"
+        "issues": "https://github.com/SupsignGmbH/geo-data-api/issues",
+        "source": "https://github.com/SupsignGmbH/geo-data-api"
     }
 }
