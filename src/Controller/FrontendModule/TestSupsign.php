@@ -15,19 +15,13 @@ use Symfony\Component\HttpFoundation\Response;
  */
 
 
-class TestSupsign extends AbstractFrontendModuleController
+class TestSupsign
 {
 
 	public function test() 
 	{
-
 		var_dump(
 			'we have contact!'
 		);
 	}
-
-    protected function getResponse(Template $template, ModuleModel $model, Request $request): ?Response
-    {
-        return $template->getResponse();
-    }
 }
