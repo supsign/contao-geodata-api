@@ -62,6 +62,10 @@ class GeoDataApi
 		return $this;
 	}
 
+	public static function convertUmlauts($string) {
+		return str_replace(['ä', 'ö', 'ü', 'Ä', 'Ö', 'Ü', 'ß'], ['ae', 'oe', 'ue', 'Ae', 'Oe', 'Ue', 'ss'], $string);
+	}
+
 	protected function createAccessToken() {
 		$this
 			->createAuthRequest()
@@ -154,8 +158,13 @@ class GeoDataApi
 		if (!is_string($input) )
 			throw new \Exception('Input has to be a string', 1);
 
+		$results = new \stdClass;
+
+		if (strlen($input) < 2)
+			return $results;
+
 		$this
-			->setInputData(['zipCity' => $input, 'limit' => $limit, 'type' => 'DOMICILE'])
+			->setInputData(['zipCity' => self::convertUmlauts($input), 'limit' => $limit, 'type' => 'DOMICILE'])
 			->createAddressRequest('zips')
 			->sendRequest();
 
@@ -164,6 +173,9 @@ class GeoDataApi
 		// );
 
 		$results = new \stdClass;
+
+		if (!$this->getResponse() )
+			return $results;
 
 		foreach ($this->getResponse()->zips AS $result)
 			if (!isset($results->{$result->zip}) )
