@@ -21,7 +21,8 @@ class GeoDataApi
 		$ch 				= null,
 		$clientId   		= 'TEST_8f7a0338-d4e4-493b-b83c-733fe41cdd02',
 		$clientSecret 		= 'TEST_0b7f92ae-41af-4ba3-94bb-083c5016aa6e',
-		$endpoints			= ['authorization' => 'https://wedec.post.ch/WEDECOAuth/authorization', 'address' => 'https://wedec.post.ch/api/address/v1'],
+		$endpoints			= ['authorization' => 'https://wedec.post.ch/WEDECOAuth/authorization/', 'address' => 'https://wedec.post.ch/api/address/v1/'],
+		$inputData 			= null,
 		$parameterData		= null,
 		$parameterString 	= null,
 		$response			= null,
@@ -32,6 +33,27 @@ class GeoDataApi
 		$this->endpoints = (object)$this->endpoints;
 
 		return $this->createAccessToken();
+	}
+
+	protected function addInputData($key, $value) {
+		$this->inputData->$key = $value;
+
+		return $this;
+	}
+
+	protected function addParameterData($key, $value) {
+		if (!$this->parameterData)
+			$this->newParameterData();
+			
+		$this->parameterData->$key = $value;
+
+		return $this;
+	}
+
+	protected function clearInputData() {
+		$this->inputData = new \stdClass;
+
+		return $this;
 	}
 
 	protected function clearParameterData() {
@@ -54,26 +76,13 @@ class GeoDataApi
 		return $this;
 	}
 
-	protected function createAddressRequest() {
+	protected function createAddressRequest($type = 'zips') {
 		$this
 			->createApiRequest('GET')
 			->newParameterData()
-			->setParameterData('zipCity', '41')
-			->setParameterData('type', 'DOMICILE');
+			->setParameterData($this->inputData);
 
-		$url = $this->endpoints->address.'/zips'.$this->getParameterString();
-
-		curl_setopt($this->ch, CURLOPT_URL, $url);
-
-		var_dump(
-			$url
-		);
-
-		$this->sendRequest();
-
-
-
-		var_dump($this->getResponse() );
+		curl_setopt($this->ch, CURLOPT_URL, $this->endpoints->address.$type.$this->getParameterString() );
 
 		return $this;
 	}
@@ -141,6 +150,28 @@ class GeoDataApi
 		return $this->accessTokenType;
 	}
 
+	public function getCityOrZip($input, $limit = 20) {
+		if (!is_string($input) )
+			throw new \Exception('Input has to be a string', 1);
+
+		$this
+			->setInputData(['zipCity' => $input, 'limit' => $limit, 'type' => 'DOMICILE'])
+			->createAddressRequest('zips')
+			->sendRequest();
+
+		// var_dump(
+		// 	$this->getResponse()
+		// );
+
+		$results = new \stdClass;
+
+		foreach ($this->getResponse()->zips AS $result)
+			if (!isset($results->{$result->zip}) )
+				$results->{$result->zip} = $result->city18;
+
+		return $results;
+	}
+
 	protected function getParameterString() {
 		if (!$this->parameterData)
 			return $this->parameterString ?: '';
@@ -154,6 +185,10 @@ class GeoDataApi
 		return $this->response;
 	}
 
+	protected function newInputData() {
+		return $this->clearInputData();
+	}
+
 	protected function newParameterData() {
 		return $this->clearParameterData();
 	}
@@ -161,41 +196,29 @@ class GeoDataApi
 	protected function sendRequest() {
 		$this->response = json_decode(curl_exec($this->ch) );
 
-		var_dump(
-			curl_error($this->ch)
-		);
-
 		curl_close($this->ch);
 
 		return $this;
 	}
 
-	protected function setParameterData($key, $value = null) {
-		if (is_array($key) ) {
-			foreach ($key AS $newKey => $value)
-				$this->setParameterData($newKey, $value);
+	protected function setInputData($data) {
+		if (!$this->inputData)
+			$this->newInputData();
 
-			return $this;
-		}
-
-		if (!$key)
-			throw new \Exception('key is required', 1);
-
-		if (!$value)
-			throw new \Exception('value is required', 1);
-
-		if (!$this->parameterData)
-			$this->newParameterData();
-			
-		$this->parameterData->$key = $value;
+		if (is_iterable($data) )
+			foreach ($data AS $key => $value)
+				$this->addInputData($key, $value);
 
 		return $this;
 	}
 
+	protected function setParameterData($data) {
+		if (!$this->parameterData)
+			$this->newParameterData();
 
-	public function test() {
-		$this->createAddressRequest();
+		foreach ($data AS $key => $value)
+			$this->addParameterData($key, $value);
 
-		return $this->getAccessToken();
+		return $this;
 	}
 }
