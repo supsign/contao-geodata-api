@@ -36,13 +36,16 @@ class GeoDataApi
 	}
 
 	protected function addInputData($key, $value) {
+		if (!isset($this->inputData) )
+			$this->newInputData();
+
 		$this->inputData->$key = $value;
 
 		return $this;
 	}
 
 	protected function addParameterData($key, $value) {
-		if (!$this->parameterData)
+		if (!isset($this->parameterData) )
 			$this->newParameterData();
 			
 		$this->parameterData->$key = $value;
@@ -57,12 +60,13 @@ class GeoDataApi
 	}
 
 	protected function clearParameterData() {
-		$this->parameterData = new \stdClass;
+		$this->parameterData   = new \stdClass;
+		$this->parameterString = null;
 
 		return $this;
 	}
 
-	public static function convertUmlauts($string) {
+	public static function convertUmlauts(string $string) {
 		return str_replace(['ä', 'ö', 'ü', 'Ä', 'Ö', 'Ü', 'ß'], ['ae', 'oe', 'ue', 'Ae', 'Oe', 'Ue', 'ss'], $string);
 	}
 
@@ -80,10 +84,9 @@ class GeoDataApi
 		return $this;
 	}
 
-	protected function createAddressRequest($type = 'zips') {
+	protected function createAddressRequest(string $type = 'zips') {
 		$this
 			->createApiRequest('GET')
-			->newParameterData()
 			->setParameterData($this->inputData);
 
 		curl_setopt($this->ch, CURLOPT_URL, $this->endpoints->address.$type.$this->getParameterString() );
@@ -91,7 +94,7 @@ class GeoDataApi
 		return $this;
 	}
 
-	protected function createApiRequest($type = null) {
+	protected function createApiRequest(string $method = null) {
 		$this->ch = curl_init();
 
 		curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
@@ -99,8 +102,8 @@ class GeoDataApi
 		if ($this->accessToken)
 			curl_setopt($this->ch, CURLOPT_HTTPHEADER, ['Authorization: '.$this->getAccessTokenType().' '.$this->getAccessToken()]);
 
-		if ($type)
-			curl_setopt($this->ch, CURLOPT_CUSTOMREQUEST, strtoupper($type) );
+		if ($method)
+			curl_setopt($this->ch, CURLOPT_CUSTOMREQUEST, strtoupper($method) );
 		else
 			curl_setopt($this->ch, CURLOPT_POST, true);
 
@@ -120,9 +123,7 @@ class GeoDataApi
 			'client_secret' => $this->clientSecret
 		];
 
-		$this
-			->newParameterData()
-			->setParameterData($data);
+		$this->setParameterData($data);
 
         curl_setopt($this->ch, CURLOPT_POSTFIELDS, ltrim($this->getParameterString(), '?') );
 
@@ -154,10 +155,7 @@ class GeoDataApi
 		return $this->accessTokenType;
 	}
 
-	public function getCityOrZip($input, $limit = 20) {
-		if (!is_string($input) )
-			throw new \Exception('Input has to be a string', 1);
-
+	public function getCityOrZip(string $input, int $limit = 20) {
 		$results = new \stdClass;
 
 		if (strlen($input) < 2)
@@ -214,19 +212,16 @@ class GeoDataApi
 	}
 
 	protected function setInputData($data) {
-		if (!$this->inputData)
-			$this->newInputData();
+		$this->clearInputData();
 
-		if (is_iterable($data) )
-			foreach ($data AS $key => $value)
-				$this->addInputData($key, $value);
+		foreach ($data AS $key => $value)
+			$this->addInputData($key, $value);
 
 		return $this;
 	}
 
 	protected function setParameterData($data) {
-		if (!$this->parameterData)
-			$this->newParameterData();
+		$this->clearParameterData();
 
 		foreach ($data AS $key => $value)
 			$this->addParameterData($key, $value);
