@@ -166,10 +166,6 @@ class GeoDataApi
 			->createAddressRequest('zips')
 			->sendRequest();
 
-		var_dump(
-			$this->getResponse()
-		);
-
 		$results = new \stdClass;
 
 		if (!$this->getResponse() )
