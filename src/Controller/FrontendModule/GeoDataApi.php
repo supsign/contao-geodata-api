@@ -70,10 +70,10 @@ class GeoDataApi
 		$string = str_replace(['ä', 'ö', 'ü', 'Ä', 'Ö', 'Ü', 'ß'], ['ae', 'oe', 'ue', 'Ae', 'Oe', 'Ue', 'ss'], $string);
 		$string = str_replace(['ê', 'è', 'é'], 'e', $string);
 		$string = str_replace(['É', 'È', 'Ê'], 'E', $string);
-		$string = str_replace(['ô'], 'o', $string);
-		$string = str_replace(['Ô'], 'O', $string);
-		$string = str_replace(['à', 'â'], 'a', $string);
-		$string = str_replace(['À', 'Â'], 'A', $string);
+		$string = str_replace(['ô', 'ó', 'ò'], 'o', $string);
+		$string = str_replace(['Ô', 'Ó', 'Ò'], 'O', $string);
+		$string = str_replace(['à', 'â', 'á'], 'a', $string);
+		$string = str_replace(['À', 'Â', 'Á'], 'A', $string);
 
 		return $string;
 	}
