@@ -21,7 +21,7 @@ class GeoDataApi
 		$ch 				= null,
 		$clientId   		= 'TEST_8f7a0338-d4e4-493b-b83c-733fe41cdd02',
 		$clientSecret 		= 'TEST_0b7f92ae-41af-4ba3-94bb-083c5016aa6e',
-		$endpoints			= ['authorization' => 'https://wedec.post.ch/WEDECOAuth/authorization'],
+		$endpoints			= ['authorization' => 'https://wedec.post.ch/WEDECOAuth/authorization', 'address' => 'https://wedec.post.ch/api/address/v1'],
 		$parameterData		= null,
 		$parameterString 	= null,
 		$response			= null,
@@ -30,6 +30,14 @@ class GeoDataApi
 
 	public function __construct() {
 		$this->endpoints = (object)$this->endpoints;
+
+		return $this->createAccessToken();
+	}
+
+	protected function clearParameterData() {
+		$this->parameterData = new \stdClass;
+
+		return $this;
 	}
 
 	protected function createAccessToken() {
@@ -38,7 +46,7 @@ class GeoDataApi
 			->sendRequest();
 
 		if (!$this->getResponse()->access_token)
-			throw new Exception('Couldn\'t fetch access token', 1);
+			throw new \Exception('Couldn\'t fetch access token', 1);
 			
 		$this->accessToken 		= $this->getResponse()->access_token;
 		$this->accessTokenType 	= $this->getResponse()->token_type;
@@ -46,16 +54,40 @@ class GeoDataApi
 		return $this;
 	}
 
-	protected function createApiRequest() {
+	protected function createAddressRequest() {
+		$this
+			->createApiRequest('GET')
+			->newParameterData()
+			->setParameterData('zipCity', '41')
+			->setParameterData('type', 'DOMICILE');
+
+		$url = $this->endpoints->address.'/zips'.$this->getParameterString();
+
+		curl_setopt($this->ch, CURLOPT_URL, $url);
+
+		var_dump(
+			$url
+		);
+
+		$this->sendRequest();
+
+
+
+		var_dump($this->getResponse() );
+
+		return $this;
+	}
+
+	protected function createApiRequest($type = null) {
 		$this->ch = curl_init();
 
 		curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
 
-		if ($this->getAccessToken() )
+		if ($this->accessToken)
 			curl_setopt($this->ch, CURLOPT_HTTPHEADER, ['Authorization: '.$this->getAccessTokenType().' '.$this->getAccessToken()]);
 
-		if (false)
-			curl_setopt($this->ch, CURLOPT_CUSTOMREQUEST, 'GET');
+		if ($type)
+			curl_setopt($this->ch, CURLOPT_CUSTOMREQUEST, strtoupper($type) );
 		else
 			curl_setopt($this->ch, CURLOPT_POST, true);
 
@@ -68,19 +100,25 @@ class GeoDataApi
 		curl_setopt($this->ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded') );
 		curl_setopt($this->ch, CURLOPT_URL, $this->endpoints->authorization);
 
-        $this->parameterData = new \stdClass;
+		$data = [
+			'grant_type' 	=> 'client_credentials',
+			'scope' 		=> 'WEDEC_AUTOCOMPLETE_ADDRESS',
+			'client_id'		=> $this->clientId,
+			'client_secret' => $this->clientSecret
+		];
 
-        $this->parameterData->grant_type	= 'client_credentials';
-        $this->parameterData->scope 		= 'openid';
-        $this->parameterData->client_id 	= $this->clientId;
-        $this->parameterData->client_secret	= $this->clientSecret;
+		$this
+			->newParameterData()
+			->setParameterData($data);
 
-        curl_setopt($this->ch, CURLOPT_POSTFIELDS, $this->getParameterString() );
+        curl_setopt($this->ch, CURLOPT_POSTFIELDS, ltrim($this->getParameterString(), '?') );
 
         return $this;
 	}
 
 	protected function createParameterString() {
+		$this->parameterString = '?';
+
 		foreach ($this->parameterData AS $key => $value)
 			$this->parameterString .= $key.'='.$value.'&';
 
@@ -116,19 +154,48 @@ class GeoDataApi
 		return $this->response;
 	}
 
+	protected function newParameterData() {
+		return $this->clearParameterData();
+	}
+
 	protected function sendRequest() {
 		$this->response = json_decode(curl_exec($this->ch) );
+
+		var_dump(
+			curl_error($this->ch)
+		);
+
 		curl_close($this->ch);
+
+		return $this;
+	}
+
+	protected function setParameterData($key, $value = null) {
+		if (is_array($key) ) {
+			foreach ($key AS $newKey => $value)
+				$this->setParameterData($newKey, $value);
+
+			return $this;
+		}
+
+		if (!$key)
+			throw new \Exception('key is required', 1);
+
+		if (!$value)
+			throw new \Exception('value is required', 1);
+
+		if (!$this->parameterData)
+			$this->newParameterData();
+			
+		$this->parameterData->$key = $value;
 
 		return $this;
 	}
 
 
 	public function test() {
+		$this->createAddressRequest();
 
-
-		// $this->getAccessToken();
-
-		return 'test';
+		return $this->getAccessToken();
 	}
 }
