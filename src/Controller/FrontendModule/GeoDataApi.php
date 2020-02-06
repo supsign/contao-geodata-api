@@ -155,7 +155,7 @@ class GeoDataApi
 		return $this->accessTokenType;
 	}
 
-	public function getCityOrZip(string $input, int $limit = 20) {
+	public function getCityOrZip(string $input, int $limit = 30) {
 		$results = new \stdClass;
 
 		if (strlen($input) < 2)
@@ -166,9 +166,9 @@ class GeoDataApi
 			->createAddressRequest('zips')
 			->sendRequest();
 
-		// var_dump(
-		// 	$this->getResponse()
-		// );
+		var_dump(
+			$this->getResponse()
+		);
 
 		$results = new \stdClass;
 
@@ -182,7 +182,7 @@ class GeoDataApi
 		return $results;
 	}
 
-	public function getCityOrZipJson(string $input, int $limit = 20) {
+	public function getCityOrZipJson(string $input, int $limit = 30) {
 		return json_encode($this->getCityOrZip($input, $limit) );
 	}
 
