@@ -182,6 +182,10 @@ class GeoDataApi
 		return $results;
 	}
 
+	public function getCityOrZipJson(string $input, int $limit = 20) {
+		return json_encode($this->getCityOrZip($input, $limit) );
+	}
+
 	protected function getParameterString() {
 		if (!$this->parameterData)
 			return $this->parameterString ?: '';
