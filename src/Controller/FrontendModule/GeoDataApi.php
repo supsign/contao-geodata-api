@@ -19,8 +19,8 @@ class GeoDataApi
 {
 	protected
 		$ch 				= null,
-		$clientId   		= 'TEST_8f7a0338-d4e4-493b-b83c-733fe41cdd02',
-		$clientSecret 		= 'TEST_0b7f92ae-41af-4ba3-94bb-083c5016aa6e',
+		$clientId   		= 'cb81e3cc263c36c6bb556aa0ded12903',
+		$clientSecret 		= '8a38730e72986202c29ce76f3cf6822d',
 		$endpoints			= ['authorization' => 'https://wedec.post.ch/WEDECOAuth/authorization/', 'address' => 'https://wedec.post.ch/api/address/v1/'],
 		$inputData 			= null,
 		$parameterData		= null,
