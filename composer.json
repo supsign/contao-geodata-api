@@ -1,5 +1,5 @@
 {
-    "name": "supsign/geodata-api-bundle",
+    "name": "supsign/contao-geodata-api-bundle",
     "type": "symfony-bundle",
     "description": "Contao 4.8 Geo Data Bundle",
     "homepage": "https://contao.org",
