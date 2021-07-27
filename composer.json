@@ -1,0 +1,33 @@
+{
+    "name": "supsign/contao-geodata-api-bundle",
+    "type": "symfony-bundle",
+    "description": "Contao 4.8 Geo Data Bundle",
+    "homepage": "https://contao.org",
+    "license": "AGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Supsign",
+            "homepage": "https://github.com/Supsign"
+        }
+    ],
+    "require": {
+        "php": "^7.0 | ^8.0",
+        "contao/core-bundle": ">=4.8"
+    },
+    "extra": {
+        "contao-manager-plugin": "Supsign\\ContaoGeoDataApiBundle\\ContaoManager\\Plugin"
+    },
+    "autoload": {
+        "psr-4": {
+            "Supsign\\ContaoGeoDataApiBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Supsign\\ContaoGeoDataApiBundle\\Tests\\": "tests/"
+        }
+    },
+    "support": {
+        "source": "https://bitbucket.supsign.tech/scm/contao/geodata-api-bundle.git"
+    }
+}

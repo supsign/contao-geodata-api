@@ -1,0 +1,6 @@
+services:
+    Supsign\ContaoGeoDataApiBundle\Migration\SupsignCredential:
+        arguments:
+            - "@database_connection"
+        tags:
+            - { name: contao.migration, priority: 0 }
